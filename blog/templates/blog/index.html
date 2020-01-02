@@ -1,0 +1,21 @@
+{% extends 'snippets/base.html' %}
+{% block content %}
+    <h3>{{ title }}</h3>
+    <p>{{ article }}</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Judul</th>
+                <th>Penulis</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for item in data %}
+                <tr>
+                    <td>{{ item.title }}</td>
+                    <td>{{ item.author }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}
