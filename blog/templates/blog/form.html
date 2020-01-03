@@ -1,0 +1,12 @@
+{% extends 'snippets/base.html' %}
+{% block content %}
+    <h3>Form Isi</h3>
+    <form method="POST">
+        {% csrf_token %}
+        <table>
+            {{ form.as_table }}
+        </table>
+        <br/>
+        <button type="submit">Save</button>
+    </form>
+{% endblock %}

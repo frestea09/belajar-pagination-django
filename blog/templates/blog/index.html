@@ -2,6 +2,7 @@
 {% block content %}
     <h3>{{ title }}</h3>
     <p>{{ article }}</p>
+    <p><a href="{% url 'blog:formTambah' %}">Tambah</a> </p>
     <table>
         <thead>
             <tr>
@@ -12,10 +13,36 @@
         <tbody>
             {% for item in data %}
                 <tr>
-                    <td>{{ item.title }}</td>
+                    <td><a href="{% url 'blog:update' inputId=item.id %}">{{ item.title }}</a> </td>
                     <td>{{ item.author }}</td>
+                    <td><a href="{% url 'blog:delete' inputId=item.id %}">Delete</a></td>
                 </tr>
             {% endfor %}
         </tbody>
     </table>
+    {% if data.has_other_pages %}
+        <ul class="pagination">
+            {% if data.has_previous %}
+                <li><a href="?page={{ data.previous_page_number }}">&laquo;</a></li>
+            {% else %}
+                <li class="disabled">&laquo;</li>
+            {% endif %}
+
+            {% for iterasi in data.paginator.page_range %}
+                {% if data.number == iterasi %}
+                    <li><span>{{ iterasi }}</span><span>(current)</span></li>
+
+                {% else %}
+
+                    <li><a href="?page={{ iterasi }}">{{ iterasi }}</a> </li>
+                {% endif %}
+            {% endfor %}
+
+            {% if data.has_next %}
+                <li><a href="?page={{ data.next_page_number }}">&raquo;</a></li>
+            {% else %}
+                <li class="disable"><span>&raquo;</span></li>
+            {% endif %}
+        </ul>
+    {% endif %}
 {% endblock %}
